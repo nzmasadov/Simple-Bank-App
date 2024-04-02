@@ -11,6 +11,7 @@ class AddCardVC: UIViewController {
     
     //MARK: - Variables
     
+    var userInfo: RegisterModel?
     private lazy var vm = AddCardVM()
     
     //MARK: - UI Components
@@ -224,11 +225,38 @@ class AddCardVC: UIViewController {
     }
     
     @objc private func nextPressed() {
-        let vc = Router.getUserCardsVC()
-        vc.modalTransitionStyle = .crossDissolve
-        vc.modalPresentationStyle = .fullScreen
-        present(vc, animated: true)
-//        navigationController?.pushViewController(vc, animated: true)
+        
+        let allFieldsHaveText = [cardNumberField, expireDateField, cvvField, fullnameField].allSatisfy({!$0.text!.isEmpty})
+        
+        if allFieldsHaveText {
+            
+            if let userInfo {
+                saveUserInfo(userInfo: userInfo){
+                    saveCardInfo(onSuccess: {
+                        let vc = Router.getUserCardsVC()
+                        vc.modalTransitionStyle = .crossDissolve
+                        vc.modalPresentationStyle = .fullScreen
+                        present(vc, animated: true)
+                    }, onError: {
+                        self.showAlertWith(title: "Warning", message: "Some error occured!")
+                    })
+
+                } onError: {
+                    self.showAlertWith(title: "Warning", message: "Some error occured!")
+                }
+            }else {
+                saveCardInfo(onSuccess: {
+                    self.dismiss(animated: true)
+                }, onError: {
+                    self.showAlertWith(title: "Warning", message: "Some error occured!")
+                })
+            }
+
+
+
+        }else {
+            self.showAlertWith(title: "Warning", message: "Required fields cannot be empty!")
+        }
     }
 }
 
@@ -276,7 +304,6 @@ extension AddCardVC {
             fieldsContainerStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             fieldsContainerStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             fieldsContainerStack.bottomAnchor.constraint(lessThanOrEqualTo: nextBtn.topAnchor, constant: -20),
-        
             
             cardNumberField.heightAnchor.constraint(equalToConstant: 44),
             expireDateField.heightAnchor.constraint(equalToConstant: 44),
@@ -288,6 +315,44 @@ extension AddCardVC {
             fullnameStack.trailingAnchor.constraint(equalTo: fullnameStack.superview!.trailingAnchor),
             fullnameStack.leadingAnchor.constraint(equalTo: fullnameStack.superview!.leadingAnchor),
         ])
+    }
+}
+
+extension AddCardVC {
+    func saveUserInfo(userInfo: RegisterModel, onSuccess: () -> Void, onError: () -> Void) {
+        let coreManager = CoreDataManager.shared
+        coreManager.addUserInfo(name: userInfo.name,
+                                phoneNumber: userInfo.phoneNumber,
+                                birthday: userInfo.birthday) { [weak self] result in
+            guard let _ = self else {return}
+            switch result {
+            case .success:
+                onSuccess()
+            case .failure:
+                onError()
+            }
+        }
+    }
+    
+    func saveCardInfo(onSuccess: () -> Void, onError: () -> Void) {
+        let coreManager = CoreDataManager.shared
+
+        coreManager.addCard(
+            cardNumber: cardNumberField.text!.replacingOccurrences(of: " ", with: ""),
+            expireDate: expireDateField.text!,
+            cvv: cvvField.text!,
+            fullName: fullnameField.text!,
+            amount: 10.0,
+            completionHandler: { [weak self] result in
+            guard let _ = self else {return}
+                
+            switch result {
+            case .success:
+                onSuccess()
+            case .failure:
+                onError()
+            }
+        })
     }
 }
 

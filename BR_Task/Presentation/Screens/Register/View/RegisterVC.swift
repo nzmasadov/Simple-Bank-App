@@ -100,19 +100,11 @@ class RegisterVC: UIViewController {
         let allFieldsHaveText = [nameTextField, phoneNumberTextField, birthdayTextField].allSatisfy({!$0.text!.isEmpty})
         
         if allFieldsHaveText {
-            let coreManager = CoreDataManager.shared
-            coreManager.addUserInfo(name: nameTextField.text!,
-                                    phoneNumber: phoneNumberTextField.text!,
-                                    birthday: birthdayTextField.text!) { [weak self] result in
-                guard let self else {return}
-                switch result {
-                case .success:
-                    let vc = Router.getAddCardVC()
-                    navigationController?.pushViewController(vc, animated: true)
-                case .failure:
-                    self.showAlertWith(title: "Warning", message: "Some error occured!")
-                }
-            }
+            let vc = Router.getAddCardVC()
+            vc.userInfo = RegisterModel(name: nameTextField.text!,
+                                        birthday: birthdayTextField.text!,
+                                        phoneNumber: phoneNumberTextField.text!)
+            navigationController?.pushViewController(vc, animated: true)
         }else {
             self.showAlertWith(title: "Warning", message: "Required fields cannot be empty!")
         }

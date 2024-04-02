@@ -9,8 +9,8 @@ import UIKit
 
 class UserCardsVC: UIViewController {
     
-    var userCards: [CardInformation] {
-        return CoreDataManager.shared.fetch(CardInformation.self)
+    var userCards: [CardInfoEntity] {
+        return CoreDataManager.shared.fetchData(CardInfoEntity.self)
     }
     //MARK: - UI Components
     
@@ -60,15 +60,13 @@ class UserCardsVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupConstraints()
-        
-//        CoreDataManager.shared.fetchUserInfo { result in
-//            switch result {
-//            case .success(let data):
-//                print("success \(data.first?.birthDate) \(data.first?.name)  \(data.first?.phoneNumber) ")
-//            case .failure(let failure):
-//                print("failureeee")
-//            }
-//        }
+        setupLongGestureRecognizerOnCollection()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        collectionView.reloadData()
     }
     
     private func setupConstraints() {
@@ -93,7 +91,8 @@ class UserCardsVC: UIViewController {
     
     @objc private func addPressed() {
         let vc = Router.getAddCardVC()
-        navigationController?.pushViewController(vc, animated: true)
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true)
     }
 }
 
@@ -111,5 +110,39 @@ extension UserCardsVC: UICollectionViewDelegate, UICollectionViewDataSource, UIC
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: self.view.frame.width - 60, height: self.collectionView.frame.height)
+    }
+}
+
+extension UserCardsVC: UIGestureRecognizerDelegate {
+    private func setupLongGestureRecognizerOnCollection() {
+        let longPressedGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(gestureRecognizer:)))
+        longPressedGesture.minimumPressDuration = 0.5
+        longPressedGesture.delegate = self
+        longPressedGesture.delaysTouchesBegan = true
+        collectionView.addGestureRecognizer(longPressedGesture)
+    }
+    
+    @objc func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
+        let coreManager = CoreDataManager.shared
+        if (gestureRecognizer.state != .began) {
+            return
+        }
+
+        let p = gestureRecognizer.location(in: collectionView)
+
+        if let indexPath = collectionView.indexPathForItem(at: p) {
+            let cardEntity = userCards[indexPath.row]
+//            coreManager.deleteCard(with: cardEntity) { [weak self] result in
+//                guard let self else {return}
+//                switch result {
+//                case .success:
+//                    DispatchQueue.main.async {
+//                        self.collectionView.reloadData()
+//                    }
+//                case .failure:
+//                    print("failure")
+//                }
+//            }
+        }
     }
 }

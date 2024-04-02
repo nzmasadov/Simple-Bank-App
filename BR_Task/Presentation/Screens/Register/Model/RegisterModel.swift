@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+struct RegisterModel {
+    var name: String
+    var birthday: String
+    var phoneNumber: String
+}

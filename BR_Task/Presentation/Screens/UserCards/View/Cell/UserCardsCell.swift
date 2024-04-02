@@ -86,7 +86,34 @@ class UserCardsCell: UICollectionViewCell {
         
         contentView.addSubview(imgView)
         return imgView
+    }()  
+    
+    private lazy var transferView : UIView = {
+        let view = UIView()
+        
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .systemBlue
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 20
+        
+//        imgView.image = .
+        
+        contentView.addSubview(view)
+        return view
     }()
+    
+    private lazy var transferBtn : UIButton = {
+        let btn = UIButton()
+        
+//        btn.contentMode = .scaleAspectFill
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.setImage(.transfer.withTintColor(.white), for: .normal)
+        btn.tintColor = .systemBlue
+        
+        transferView.addSubview(btn)
+        return btn
+    }()
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -99,7 +126,7 @@ class UserCardsCell: UICollectionViewCell {
     }
     
     private func setupUI() {
-        contentView.backgroundColor = .systemBlue
+        contentView.backgroundColor = .systemBlue.withAlphaComponent(0.8)
         clipsToBounds = true
         layer.cornerRadius = 16
         
@@ -124,19 +151,30 @@ class UserCardsCell: UICollectionViewCell {
             cardAmountLbl.topAnchor.constraint(equalTo: cardNameLbl.bottomAnchor, constant: 30),
             cardAmountLbl.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 32),
             
-            cardTypeImgView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-            cardTypeImgView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
-            cardTypeImgView.heightAnchor.constraint(equalToConstant: 30),
-            cardTypeImgView.widthAnchor.constraint(equalToConstant: 60),
+            cardTypeImgView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            cardTypeImgView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
+            cardTypeImgView.heightAnchor.constraint(equalToConstant: 24),
+            cardTypeImgView.widthAnchor.constraint(equalToConstant: 50),
             
-            cardInfoStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 40),
+            cardInfoStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             cardInfoStack.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor, constant: -20),
-            cardInfoStack.topAnchor.constraint(equalTo: cardAmountLbl.bottomAnchor, constant: 40),
+//            cardInfoStack.topAnchor.constraint(equalTo: cardAmountLbl.bottomAnchor, constant: 40),
+            cardInfoStack.bottomAnchor.constraint(equalTo: cardTypeImgView.topAnchor, constant: -20),
+            
+            transferView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            transferView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
+            
+            transferBtn.heightAnchor.constraint(equalToConstant: 24),
+            transferBtn.widthAnchor.constraint(equalToConstant: 24),
+            transferBtn.trailingAnchor.constraint(equalTo: transferBtn.superview!.trailingAnchor, constant: -8),
+            transferBtn.leadingAnchor.constraint(equalTo: transferBtn.superview!.leadingAnchor, constant: 8),
+            transferBtn.bottomAnchor.constraint(equalTo: transferBtn.superview!.bottomAnchor, constant: -8),
+            transferBtn.topAnchor.constraint(equalTo: transferBtn.superview!.topAnchor, constant: 8),
+            
         ])
     }
     
-    
-    func setupCell(model: CardInformation) {
+    func setupCell(model: CardInfoEntity) {
         cardAmountLbl.text = (model.amount ?? "") + "₼‎"
         if let cardNumber = model.cardNumber {
             let lastFourNumber = String(cardNumber.dropFirst(12))

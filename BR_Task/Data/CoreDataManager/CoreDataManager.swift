@@ -14,7 +14,7 @@ final class CoreDataManager {
     static let shared = CoreDataManager()
 
     let persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "CoreDataModel")
+        let container = NSPersistentContainer(name: "UserCoreDataManager")
         
         container.loadPersistentStores { (storeDescription, error) in
             if let error = error {
@@ -27,12 +27,11 @@ final class CoreDataManager {
     func addUserInfo(name: String, phoneNumber: String, birthday: String, completionHandler: (Result<Data, Error>) -> Void){
         
         let context = persistentContainer.viewContext
-        let userInfo = UserInformation(context: context)
+        let userInfo = UserInfoEntity(context: context)
         
         userInfo.name = name
         userInfo.phoneNumber = phoneNumber
-        userInfo.birthDate = birthday
-        userInfo.insertedDate = Date()
+        userInfo.birthday = birthday
 
         do {
             try context.save()
@@ -42,10 +41,10 @@ final class CoreDataManager {
         }
     }   
     
-    func addUserCardInfo(cardNumber: String, expireDate: String, cvv: String, fullName: String, amount: Double, completionHandler: (Result<Data, Error>) -> Void) {
+    func addCard(cardNumber: String, expireDate: String, cvv: String, fullName: String, amount: Double, completionHandler: (Result<Data, Error>) -> Void) {
         
         let context = persistentContainer.viewContext
-        let cardInfo = CardInformation(context: context)
+        let cardInfo = CardInfoEntity(context: context)
         
         cardInfo.cardNumber = cardNumber
         cardInfo.expireDate = expireDate
@@ -62,20 +61,32 @@ final class CoreDataManager {
         }
     }
     
-    func fetchUserInfo(completionHandler: (Result<[UserInformation], Error>) -> Void) {
+    func deleteCard(with cardEntity: CardInfoEntity, completionHandler: (Result<Data, Error>) -> Void) {
         let context = persistentContainer.viewContext
-        
-        let analysesFetch: NSFetchRequest<UserInformation> = UserInformation.fetchRequest()
+        context.delete(cardEntity)
         
         do {
-            let results = try context.fetch(analysesFetch)
-            completionHandler(.success(results))
-        }catch let error as NSError {
+            try context.save()
+            completionHandler(.success(Data()))
+        }catch let error {
             completionHandler(.failure(error))
         }
     }
     
-    func fetch<T: NSManagedObject>(_ type: T.Type) -> [T] {
+//    func fetchUserInfo(completionHandler: (Result<[UserInfoEntity], Error>) -> Void) {
+//        let context = persistentContainer.viewContext
+//        
+//        let analysesFetch: NSFetchRequest<UserInfoEntity> = UserInfoEntity.fetchRequest()
+//        
+//        do {
+//            let results = try context.fetch(analysesFetch)
+//            completionHandler(.success(results))
+//        }catch let error as NSError {
+//            completionHandler(.failure(error))
+//        }
+//    }
+    
+    func fetchData<T: NSManagedObject>(_ type: T.Type) -> [T] {
         do {
             let fetchRequest = NSFetchRequest<T>(entityName: type.description())
             let fetchItem = try persistentContainer.viewContext.fetch(fetchRequest)
@@ -85,4 +96,6 @@ final class CoreDataManager {
             return []
         }
     }
+    
+
 }
