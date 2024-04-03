@@ -61,31 +61,6 @@ final class CoreDataManager {
         }
     }
     
-    func deleteCard(with cardEntity: CardInfoEntity, completionHandler: (Result<Data, Error>) -> Void) {
-        let context = persistentContainer.viewContext
-        context.delete(cardEntity)
-        
-        do {
-            try context.save()
-            completionHandler(.success(Data()))
-        }catch let error {
-            completionHandler(.failure(error))
-        }
-    }
-    
-//    func fetchUserInfo(completionHandler: (Result<[UserInfoEntity], Error>) -> Void) {
-//        let context = persistentContainer.viewContext
-//        
-//        let analysesFetch: NSFetchRequest<UserInfoEntity> = UserInfoEntity.fetchRequest()
-//        
-//        do {
-//            let results = try context.fetch(analysesFetch)
-//            completionHandler(.success(results))
-//        }catch let error as NSError {
-//            completionHandler(.failure(error))
-//        }
-//    }
-    
     func fetchData<T: NSManagedObject>(_ type: T.Type) -> [T] {
         do {
             let fetchRequest = NSFetchRequest<T>(entityName: type.description())
@@ -97,5 +72,51 @@ final class CoreDataManager {
         }
     }
     
-
+    func updateCardAmount(fromCard: CardInfoEntity?, toCard: CardInfoEntity?, amount: Double, completionHandler: (Result<Data, Error>) -> Void) {
+        let context = persistentContainer.viewContext
+        
+        let fromCardFetch: NSFetchRequest<CardInfoEntity> = CardInfoEntity.fetchRequest()
+        fromCardFetch.fetchLimit = 1
+        fromCardFetch.predicate =  NSPredicate(format: "SELF = %@", (fromCard?.objectID ?? ""))
+        let resultsFromFetch = try? persistentContainer.viewContext.fetch(fromCardFetch)
+        
+        let toCardFetch: NSFetchRequest<CardInfoEntity> = CardInfoEntity.fetchRequest()
+        toCardFetch.fetchLimit = 1
+        toCardFetch.predicate =  NSPredicate(format: "SELF = %@", (toCard?.objectID ?? ""))
+        let resultsToFetch = try? persistentContainer.viewContext.fetch(toCardFetch)
+        
+        var fromDataEntity: CardInfoEntity?
+        var toDataEntity: CardInfoEntity?
+                
+        fromDataEntity = resultsFromFetch?.first
+        toDataEntity = resultsToFetch?.first
+        
+        let fromAmount = Double(fromDataEntity?.amount ?? "0") ?? 0
+        let toAmount = Double(toDataEntity?.amount ?? "0") ?? 0
+        
+        let differenceFrom = String(fromAmount - amount)
+        let differenceTo = String(toAmount + amount)
+        
+        fromDataEntity?.amount = differenceFrom
+        toDataEntity?.amount = differenceTo
+        
+        do {
+            try context.save()
+            completionHandler(.success(Data()))
+        } catch let error {
+            completionHandler(.failure(error))
+        }
+    } 
+    
+    func deleteCard(card: CardInfoEntity, completionHandler: (Result<Data, Error>) -> Void) {
+        let context = persistentContainer.viewContext
+        context.delete(card)
+        
+        do {
+            try context.save()
+            completionHandler(.success(Data()))
+        }catch let error as NSError {
+            completionHandler(.failure(error))
+        }
+    }
 }

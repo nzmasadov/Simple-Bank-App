@@ -23,5 +23,10 @@ final class Router {
     static func getUserCardsVC() -> UserCardsVC {
         let vc = UserCardsVC()
         return vc
+    }    
+    
+    static func getTransferVC() -> TransferVC {
+        let vc = TransferVC()
+        return vc
     }
 }

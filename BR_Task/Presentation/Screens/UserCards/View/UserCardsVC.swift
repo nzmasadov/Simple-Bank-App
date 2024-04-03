@@ -103,14 +103,17 @@ extension UserCardsVC: UICollectionViewDelegate, UICollectionViewDataSource, UIC
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: UserCardsCell.self), for: indexPath) as! UserCardsCell
-        
-        cell.setupCell(model: userCards[indexPath.row])
+        cell.delegate = self
+        cell.setupCell(model: userCards[indexPath.row], index: indexPath.row)
+
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: self.view.frame.width - 60, height: self.collectionView.frame.height)
     }
+    
+    
 }
 
 extension UserCardsVC: UIGestureRecognizerDelegate {
@@ -123,26 +126,52 @@ extension UserCardsVC: UIGestureRecognizerDelegate {
     }
     
     @objc func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
-        let coreManager = CoreDataManager.shared
         if (gestureRecognizer.state != .began) {
             return
         }
 
         let p = gestureRecognizer.location(in: collectionView)
-
         if let indexPath = collectionView.indexPathForItem(at: p) {
-            let cardEntity = userCards[indexPath.row]
-//            coreManager.deleteCard(with: cardEntity) { [weak self] result in
-//                guard let self else {return}
-//                switch result {
-//                case .success:
-//                    DispatchQueue.main.async {
-//                        self.collectionView.reloadData()
-//                    }
-//                case .failure:
-//                    print("failure")
-//                }
-//            }
+            
+            showMultipleAlert(with: "Are you sure to delete?", preferredStyle: .alert, actions: [(title: "Cancel", style: .cancel), (title: "Delete", style: .destructive)]) { (index, _) in
+                if index == 1 {
+                    self.deleteCard(with: indexPath.row)
+                }else {
+                    return
+                }
+            }
         }
+    }
+    
+    private func deleteCard(with index: Int) {
+        let coreManager = CoreDataManager.shared
+        coreManager.deleteCard(card: userCards[index]) { [weak self] success in
+            guard let self else {return}
+            switch success {
+            case .success:
+                if userCards.isEmpty {
+                    let vc = BaseNavigationViewController(rootViewController: Router.getRegisterVC())
+                    vc.modalTransitionStyle = .crossDissolve
+                    vc.modalPresentationStyle = .fullScreen
+                    self.present(vc, animated: true)
+                }else {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute:  {
+                        self.collectionView.reloadData()
+                    })
+                }
+
+            case .failure:
+                print("Error")
+            }
+        }
+    }
+}
+
+extension UserCardsVC: CardSelectionDelegate {
+    func didSelectCard(index: Int) {
+        let vc = Router.getTransferVC()
+        vc.cardSelectedIndex = index
+        vc.userCards = userCards
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }

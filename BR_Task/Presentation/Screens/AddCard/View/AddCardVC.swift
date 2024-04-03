@@ -233,7 +233,7 @@ class AddCardVC: UIViewController {
             if let userInfo {
                 saveUserInfo(userInfo: userInfo){
                     saveCardInfo(onSuccess: {
-                        let vc = Router.getUserCardsVC()
+                        let vc = BaseNavigationViewController(rootViewController: Router.getUserCardsVC())
                         vc.modalTransitionStyle = .crossDissolve
                         vc.modalPresentationStyle = .fullScreen
                         present(vc, animated: true)
@@ -252,10 +252,8 @@ class AddCardVC: UIViewController {
                 })
             }
 
-
-
         }else {
-            self.showAlertWith(title: "Warning", message: "Required fields cannot be empty!")
+            self.showAlertWith(title: "Warning", message: "Fields cannot be empty!")
         }
     }
 }

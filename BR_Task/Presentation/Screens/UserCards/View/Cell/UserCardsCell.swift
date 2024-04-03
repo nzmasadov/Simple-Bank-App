@@ -7,7 +7,14 @@
 
 import UIKit
 
+protocol CardSelectionDelegate: AnyObject {
+    func didSelectCard(index: Int)
+}
+
 class UserCardsCell: UICollectionViewCell {
+    
+    private var index = 0
+    weak var delegate: CardSelectionDelegate?
     
     private lazy var applePayImgView : UIImageView = {
         let imgView = UIImageView()
@@ -36,7 +43,6 @@ class UserCardsCell: UICollectionViewCell {
         let label = UILabel()
 
         label.font = UIFont.systemFont(ofSize: 26, weight: .semibold)
-//        label.text = "10 ₼‎"
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .white
         
@@ -71,7 +77,6 @@ class UserCardsCell: UICollectionViewCell {
         let label = UILabel()
         
         label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-//        label.text = "12/28"
         label.textColor = .white
 
         return label
@@ -105,10 +110,10 @@ class UserCardsCell: UICollectionViewCell {
     private lazy var transferBtn : UIButton = {
         let btn = UIButton()
         
-//        btn.contentMode = .scaleAspectFill
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.setImage(.transfer.withTintColor(.white), for: .normal)
         btn.tintColor = .systemBlue
+        btn.addTarget(self, action: #selector(transferPressed), for: .touchUpInside)
         
         transferView.addSubview(btn)
         return btn
@@ -123,6 +128,10 @@ class UserCardsCell: UICollectionViewCell {
     
     required init(coder: NSCoder) {
         fatalError()
+    }
+    
+    @objc func transferPressed() {
+        delegate?.didSelectCard(index: self.index)        
     }
     
     private func setupUI() {
@@ -158,7 +167,6 @@ class UserCardsCell: UICollectionViewCell {
             
             cardInfoStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             cardInfoStack.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor, constant: -20),
-//            cardInfoStack.topAnchor.constraint(equalTo: cardAmountLbl.bottomAnchor, constant: 40),
             cardInfoStack.bottomAnchor.constraint(equalTo: cardTypeImgView.topAnchor, constant: -20),
             
             transferView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
@@ -174,7 +182,8 @@ class UserCardsCell: UICollectionViewCell {
         ])
     }
     
-    func setupCell(model: CardInfoEntity) {
+    func setupCell(model: CardInfoEntity, index: Int) {
+        self.index = index
         cardAmountLbl.text = (model.amount ?? "") + "₼‎"
         if let cardNumber = model.cardNumber {
             let lastFourNumber = String(cardNumber.dropFirst(12))

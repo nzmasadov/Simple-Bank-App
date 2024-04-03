@@ -20,12 +20,13 @@
 		77B301892BB9D7D700201D2B /* UserCardsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B301882BB9D7D700201D2B /* UserCardsCell.swift */; };
 		77C02DB42BBA2FF100EFB2B9 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C02DB32BBA2FF100EFB2B9 /* CoreDataManager.swift */; };
 		77C02DB62BBA354E00EFB2B9 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C02DB52BBA354E00EFB2B9 /* Extensions.swift */; };
-		77E212ED2BBA4BC5003F7509 /* UserCoreDataManager.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 77E212EB2BBA4BC5003F7509 /* UserCoreDataManager.xcdatamodeld */; };
-		77E212F22BBA4CAA003F7509 /* CardInfoEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E212EE2BBA4CAA003F7509 /* CardInfoEntity+CoreDataClass.swift */; };
-		77E212F32BBA4CAA003F7509 /* CardInfoEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E212EF2BBA4CAA003F7509 /* CardInfoEntity+CoreDataProperties.swift */; };
-		77E212F42BBA4CAA003F7509 /* UserInfoEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E212F02BBA4CAA003F7509 /* UserInfoEntity+CoreDataClass.swift */; };
-		77E212F52BBA4CAA003F7509 /* UserInfoEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E212F12BBA4CAA003F7509 /* UserInfoEntity+CoreDataProperties.swift */; };
 		77E212FA2BBA4D8A003F7509 /* RegisterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E212F92BBA4D8A003F7509 /* RegisterModel.swift */; };
+		C49A3B612BBD398A002A3560 /* UserCoreDataManager.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C49A3B5F2BBD398A002A3560 /* UserCoreDataManager.xcdatamodeld */; };
+		C49A3B662BBD3A4A002A3560 /* UserInfoEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49A3B622BBD3A4A002A3560 /* UserInfoEntity+CoreDataClass.swift */; };
+		C49A3B672BBD3A4A002A3560 /* UserInfoEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49A3B632BBD3A4A002A3560 /* UserInfoEntity+CoreDataProperties.swift */; };
+		C49A3B682BBD3A4A002A3560 /* CardInfoEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49A3B642BBD3A4A002A3560 /* CardInfoEntity+CoreDataClass.swift */; };
+		C49A3B692BBD3A4A002A3560 /* CardInfoEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49A3B652BBD3A4A002A3560 /* CardInfoEntity+CoreDataProperties.swift */; };
+		C49A3B6F2BBD3E65002A3560 /* TransferVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49A3B6E2BBD3E65002A3560 /* TransferVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,12 +45,13 @@
 		77B301882BB9D7D700201D2B /* UserCardsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCardsCell.swift; sourceTree = "<group>"; };
 		77C02DB32BBA2FF100EFB2B9 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		77C02DB52BBA354E00EFB2B9 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		77E212EC2BBA4BC5003F7509 /* UserCoreDataManager.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = UserCoreDataManager.xcdatamodel; sourceTree = "<group>"; };
-		77E212EE2BBA4CAA003F7509 /* CardInfoEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CardInfoEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
-		77E212EF2BBA4CAA003F7509 /* CardInfoEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CardInfoEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		77E212F02BBA4CAA003F7509 /* UserInfoEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserInfoEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
-		77E212F12BBA4CAA003F7509 /* UserInfoEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserInfoEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		77E212F92BBA4D8A003F7509 /* RegisterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterModel.swift; sourceTree = "<group>"; };
+		C49A3B602BBD398A002A3560 /* UserCoreDataManager.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = UserCoreDataManager.xcdatamodel; sourceTree = "<group>"; };
+		C49A3B622BBD3A4A002A3560 /* UserInfoEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserInfoEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		C49A3B632BBD3A4A002A3560 /* UserInfoEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserInfoEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		C49A3B642BBD3A4A002A3560 /* CardInfoEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CardInfoEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		C49A3B652BBD3A4A002A3560 /* CardInfoEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CardInfoEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		C49A3B6E2BBD3E65002A3560 /* TransferVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,6 +187,7 @@
 		77C02DBA2BBA35F300EFB2B9 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				C49A3B6A2BBD3E31002A3560 /* Transfer */,
 				7702F2682BB6DE220039FD53 /* AddCard */,
 				77C02DBB2BBA360300EFB2B9 /* Register */,
 				77E212E92BBA4B6E003F7509 /* UserCards */,
@@ -250,11 +253,11 @@
 			isa = PBXGroup;
 			children = (
 				77C02DB32BBA2FF100EFB2B9 /* CoreDataManager.swift */,
-				77E212EE2BBA4CAA003F7509 /* CardInfoEntity+CoreDataClass.swift */,
-				77E212EF2BBA4CAA003F7509 /* CardInfoEntity+CoreDataProperties.swift */,
-				77E212F02BBA4CAA003F7509 /* UserInfoEntity+CoreDataClass.swift */,
-				77E212F12BBA4CAA003F7509 /* UserInfoEntity+CoreDataProperties.swift */,
-				77E212EB2BBA4BC5003F7509 /* UserCoreDataManager.xcdatamodeld */,
+				C49A3B622BBD3A4A002A3560 /* UserInfoEntity+CoreDataClass.swift */,
+				C49A3B632BBD3A4A002A3560 /* UserInfoEntity+CoreDataProperties.swift */,
+				C49A3B642BBD3A4A002A3560 /* CardInfoEntity+CoreDataClass.swift */,
+				C49A3B652BBD3A4A002A3560 /* CardInfoEntity+CoreDataProperties.swift */,
+				C49A3B5F2BBD398A002A3560 /* UserCoreDataManager.xcdatamodeld */,
 			);
 			path = CoreDataManager;
 			sourceTree = "<group>";
@@ -280,6 +283,38 @@
 			children = (
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C49A3B6A2BBD3E31002A3560 /* Transfer */ = {
+			isa = PBXGroup;
+			children = (
+				C49A3B6D2BBD3E48002A3560 /* Model */,
+				C49A3B6C2BBD3E43002A3560 /* View */,
+				C49A3B6B2BBD3E3B002A3560 /* ViewModel */,
+			);
+			path = Transfer;
+			sourceTree = "<group>";
+		};
+		C49A3B6B2BBD3E3B002A3560 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C49A3B6C2BBD3E43002A3560 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C49A3B6E2BBD3E65002A3560 /* TransferVC.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C49A3B6D2BBD3E48002A3560 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -357,13 +392,14 @@
 				7702F2732BB77B120039FD53 /* UserCardsVC.swift in Sources */,
 				7719FB672BB5EFCC00A46DE7 /* RegisterVC.swift in Sources */,
 				7719FB772BB5F06B00A46DE7 /* Router.swift in Sources */,
+				C49A3B612BBD398A002A3560 /* UserCoreDataManager.xcdatamodeld in Sources */,
+				C49A3B662BBD3A4A002A3560 /* UserInfoEntity+CoreDataClass.swift in Sources */,
+				C49A3B6F2BBD3E65002A3560 /* TransferVC.swift in Sources */,
+				C49A3B672BBD3A4A002A3560 /* UserInfoEntity+CoreDataProperties.swift in Sources */,
+				C49A3B682BBD3A4A002A3560 /* CardInfoEntity+CoreDataClass.swift in Sources */,
+				C49A3B692BBD3A4A002A3560 /* CardInfoEntity+CoreDataProperties.swift in Sources */,
 				77B301892BB9D7D700201D2B /* UserCardsCell.swift in Sources */,
-				77E212ED2BBA4BC5003F7509 /* UserCoreDataManager.xcdatamodeld in Sources */,
 				77C02DB62BBA354E00EFB2B9 /* Extensions.swift in Sources */,
-				77E212F22BBA4CAA003F7509 /* CardInfoEntity+CoreDataClass.swift in Sources */,
-				77E212F32BBA4CAA003F7509 /* CardInfoEntity+CoreDataProperties.swift in Sources */,
-				77E212F42BBA4CAA003F7509 /* UserInfoEntity+CoreDataClass.swift in Sources */,
-				77E212F52BBA4CAA003F7509 /* UserInfoEntity+CoreDataProperties.swift in Sources */,
 				7702F2642BB6DBA70039FD53 /* BaseNavigationController.swift in Sources */,
 				77E212FA2BBA4D8A003F7509 /* RegisterModel.swift in Sources */,
 				7702F2602BB6C0C90039FD53 /* BaseTextField.swift in Sources */,
@@ -583,14 +619,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		77E212EB2BBA4BC5003F7509 /* UserCoreDataManager.xcdatamodeld */ = {
+		C49A3B5F2BBD398A002A3560 /* UserCoreDataManager.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				77E212EC2BBA4BC5003F7509 /* UserCoreDataManager.xcdatamodel */,
+				C49A3B602BBD398A002A3560 /* UserCoreDataManager.xcdatamodel */,
 			);
-			currentVersion = 77E212EC2BBA4BC5003F7509 /* UserCoreDataManager.xcdatamodel */;
+			currentVersion = C49A3B602BBD398A002A3560 /* UserCoreDataManager.xcdatamodel */;
 			name = UserCoreDataManager.xcdatamodeld;
-			path = /Users/testtest/Desktop/BR_Task/BR_Task/Data/CoreDataManager/UserCoreDataManager.xcdatamodeld;
+			path = "/Users/crocusoft/Desktop/Simple-Bank-App/BR_Task/Data/CoreDataManager/UserCoreDataManager.xcdatamodeld";
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
